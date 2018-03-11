@@ -33,6 +33,14 @@ CREATE SCHEMA `hivery` ;
  python data.py 
  ```
 
+## Development Notes
+
+*Since the master data for separating fruits and vegetables were missing and I didnt get clarification for my mail as well, I have assumed that the master data has been missed. so I have
+shortlisted the data for fruits and provided it as a list in the data load. So items which are not present in the list if 
+loaded will show as vegetable in the API result*
+
+*Fruit list provided as master data ['apple','banana','orange','strawberry']*
+
 ## Local server(w Hot reloading)
 
 ```
