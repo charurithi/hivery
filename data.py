@@ -66,8 +66,7 @@ def createTables():
 		session.execute("""CREATE TABLE IF NOT EXISTS `trans_friends` (
 							`ppl_id` INT NOT NULL,
 							`friend_ppl_id` INT NOT NULL,
-							UNIQUE INDEX `trans_friends_uq` (`ppl_id` ASC, `friend_ppl_id` ASC),
-							INDEX `trans_people_idx` (`name` ASC));
+							UNIQUE INDEX `trans_friends_uq` (`ppl_id` ASC, `friend_ppl_id` ASC));
 							""")
 		session.execute("TRUNCATE TABLE trans_friends")
 		session.execute("CREATE TABLE IF NOT EXISTS trans_fav_food (ppl_id INT NOT NULL, food_name VARCHAR(50) NOT NULL,UNIQUE INDEX `trans_fav_food_uq` (`ppl_id` ASC, `food_name` ASC))")
