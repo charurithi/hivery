@@ -59,19 +59,19 @@ def createTables():
 								`company_id` INT NULL,
 								`phone` VARCHAR(45) NULL,
 								`address` VARCHAR(150) NULL,
-								PRIMARY KEY (`ppl_id`),
-								INDEX `trans_people_idx` (`name` ASC))
+								PRIMARY KEY (`ppl_id`))
 							 """)
 		session.execute("TRUNCATE TABLE trans_people")
 		session.execute("""CREATE TABLE IF NOT EXISTS `trans_friends` (
 							`ppl_id` INT NOT NULL,
 							`friend_ppl_id` INT NOT NULL,
-							UNIQUE INDEX `trans_friends_uq` (`ppl_id` ASC, `friend_ppl_id` ASC));
+							UNIQUE INDEX `trans_friends_uq` (`ppl_id` ASC, `friend_ppl_id` ASC))
 							""")
 		session.execute("TRUNCATE TABLE trans_friends")
 		session.execute("CREATE TABLE IF NOT EXISTS trans_fav_food (ppl_id INT NOT NULL, food_name VARCHAR(50) NOT NULL,UNIQUE INDEX `trans_fav_food_uq` (`ppl_id` ASC, `food_name` ASC))")
 		session.execute("TRUNCATE TABLE trans_fav_food ")
 		session.execute("CREATE TABLE IF NOT EXISTS dim_fav_food (food_name VARCHAR(100) NOT NULL ,is_fruit INT NULL, PRIMARY KEY(food_name))")
+		session.execute("TRUNCATE TABLE dim_fav_food ")
 		session.commit()
 	except Exception as e:
 		PrintException()
@@ -120,7 +120,7 @@ def loadPeople():
 						is_fruit =1
 					else:
 						is_fruit =0
-					session.execute("""INSERT INTO dim_fav_food (food_name,is_fruit) VALUES(:food_name,:is_fruit) ON DUPLICATE KEY UPDATE is_fruit = Null """,
+					session.execute("""INSERT INTO dim_fav_food (food_name,is_fruit) VALUES(:food_name,:is_fruit) ON DUPLICATE KEY UPDATE is_fruit = :is_fruit """,
 										{"food_name":food_row,"is_fruit":is_fruit})
 					session.execute(""" INSERT INTO trans_fav_food (ppl_id,food_name) VALUES(:ppl_id,:food_id)
 									""",{"ppl_id":row['index'],"food_id":food_row})
@@ -134,6 +134,6 @@ def loadPeople():
 			logging.info('Data Load completed successfully')
 			return True
 			
-res_tables = createTables()
-res_companies = loadCompanies();
-res_people = loadPeople();
+createTables();
+loadCompanies();
+loadPeople();
