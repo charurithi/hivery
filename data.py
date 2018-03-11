@@ -59,7 +59,8 @@ def createTables():
 								`company_id` INT NULL,
 								`phone` VARCHAR(45) NULL,
 								`address` VARCHAR(150) NULL,
-								PRIMARY KEY (`ppl_id`))
+								PRIMARY KEY (`ppl_id`),
+								INDEX `trans_people_idx` (`name` ASC))
 							 """)
 		session.execute("TRUNCATE TABLE trans_people")
 		session.execute("""CREATE TABLE IF NOT EXISTS `trans_friends` (
